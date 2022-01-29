@@ -17,3 +17,13 @@ BEGIN
     price := calculate_price(5, 'stdnt');
     dbms_output.put_line(TO_CHAR(price));
 END;
+
+
+-- get free places num
+
+DECLARE
+    free_places NUMBER(6,2);
+BEGIN
+    free_places := get_free_places_number(64);
+    dbms_output.put_line(TO_CHAR(free_places));
+END;

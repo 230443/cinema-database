@@ -40,3 +40,38 @@ BEGIN
     
     RETURN calculated_price;
 END calculate_price;
+
+
+CREATE OR REPLACE FUNCTION get_free_places_number (
+    in_screening_id IN screenings.id%TYPE
+) RETURN rooms.capacity%TYPE IS
+
+    l_capacity        rooms.capacity%TYPE;
+    out_free_places   rooms.capacity%TYPE := -1;
+    occupied_places   rooms.capacity%TYPE;
+BEGIN
+
+-- get capacity
+    SELECT
+        r.capacity
+    INTO l_capacity
+    FROM
+        screenings   s
+        JOIN rooms        r ON s.room = r.id
+    WHERE
+        s.id = in_screening_id
+    FETCH FIRST 1 ROWS ONLY;
+    
+-- count sold tickets
+
+    SELECT
+        COUNT(id)
+    INTO occupied_places
+    FROM
+        sold_tickets
+    WHERE
+        screening_id = in_screening_id;
+
+    out_free_places := l_capacity - occupied_places;
+    RETURN out_free_places;
+END get_free_places_number;

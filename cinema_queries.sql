@@ -42,3 +42,18 @@ FROM
     JOIN screening_types   st ON r.screening_type = st.id
 ORDER BY
     s.screening_time;
+
+SELECT DISTINCT
+    r.id,
+    r.capacity,
+    r.screening_type
+FROM
+    screenings   s
+    JOIN rooms        r ON s.room = r.id;
+    
+SELECT
+    COUNT(id)
+FROM
+    sold_tickets
+GROUP BY
+    screening_id;
