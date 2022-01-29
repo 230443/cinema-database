@@ -21,6 +21,7 @@ INSERT INTO Rooms VALUES (default, 70, '4X3D');
 INSERT INTO Rooms VALUES (default, 150, 'IM2D');
 INSERT INTO Rooms VALUES (default, 150, 'IM2D');
 INSERT INTO Rooms VALUES (default, 130, 'IM3D');
+INSERT INTO Rooms VALUES (default, 2, '2D');
 
 
 INSERT INTO Screenings VALUES (default, 9, 1, TO_DATE('2021-12-21 17:00', 'YYYY-MM-DD HH24:MI'));
