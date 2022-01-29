@@ -5,7 +5,7 @@ SET SERVEROUTPUT ON
 DECLARE
     price NUMBER;
 BEGIN
-    price := get_base_price(5);
+    price := get_base_price(64);
     dbms_output.put_line(TO_CHAR(price));
 END;
 
@@ -14,7 +14,7 @@ END;
 DECLARE
     price NUMBER(6, 2);
 BEGIN
-    price := calculate_price(5, 'stdnt');
+    price := calculate_price(64, 'stdnt');
     dbms_output.put_line(TO_CHAR(price));
 END;
 

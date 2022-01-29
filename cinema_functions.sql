@@ -14,8 +14,10 @@ BEGIN
         s.id = in_screening_id;
 
     RETURN out_price;
+EXCEPTION
+    WHEN no_data_found THEN
+        raise_application_error(-20002, 'Price not found for screening_id: ' || TO_CHAR(in_screening_id));
 END get_base_price;
-
 
 CREATE OR REPLACE FUNCTION calculate_price (
     in_screening_id   IN   screenings.id%TYPE,
@@ -27,7 +29,6 @@ CREATE OR REPLACE FUNCTION calculate_price (
     calculated_price   sold_tickets.price%TYPE;
 BEGIN
     base_price := get_base_price(in_screening_id);
-    
     SELECT
         percent_off
     INTO disc_value
@@ -36,11 +37,14 @@ BEGIN
     WHERE
         id = in_discount_id;
 
-    calculated_price :=  (1 - disc_value) * base_price;
-    
+    calculated_price := ( 1 - disc_value ) * base_price;
     RETURN calculated_price;
+EXCEPTION
+    WHEN no_data_found THEN
+        raise_application_error(-20003, 'Discount "'
+                                        || in_discount_id
+                                        || '" not found.');
 END calculate_price;
-
 
 CREATE OR REPLACE FUNCTION get_free_places_number (
     in_screening_id IN screenings.id%TYPE
