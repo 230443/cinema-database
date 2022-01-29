@@ -27,3 +27,19 @@ BEGIN
     free_places := get_free_places_number(64);
     dbms_output.put_line(TO_CHAR(free_places));
 END;
+
+
+-- get free places num
+
+DECLARE
+    screening number := 69;
+    email customers.email%TYPE := 'random.guy@email.com';
+    dis dicounts.id%TYPE := 'stdnt';
+BEGIN
+dbms_output.put_line('sell_ticket(screening, dis, email) ');
+    sell_ticket(screening, dis, email);
+    dbms_output.put_line(TO_CHAR(get_free_places_number(64)));
+    dbms_output.put_line('sell_ticket(screening, dis) ');
+    sell_ticket(screening, dis, email);
+    dbms_output.put_line('next should be error');
+END;
