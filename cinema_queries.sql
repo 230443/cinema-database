@@ -26,3 +26,19 @@ GROUP BY f.ID;
 --the cheapest screening 
 
 --the most expensive screening
+
+-- get programme
+
+ALTER SESSION SET nls_date_format = 'dd-MON-yyyy hh24:mi';
+SELECT
+    s.id,
+    f.title,
+    s.screening_time,
+    st.type_name
+FROM
+    screenings        s
+    JOIN films             f ON s.film = f.id
+    JOIN rooms             r ON s.room = r.id
+    JOIN screening_types   st ON r.screening_type = st.id
+ORDER BY
+    s.screening_time;
