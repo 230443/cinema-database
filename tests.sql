@@ -79,3 +79,15 @@ DECLARE
 BEGIN
     modify_film_by_title(in_search_title => search_title, in_director => director, in_release_date => release_date);
 END;
+
+
+-- test add_screening
+
+DECLARE
+    film_id   screenings.film%TYPE := 9;
+    room_id        screenings.room%TYPE := 8;
+    screening_time    screenings.screening_time%TYPE:= '22-DEC-2023';
+
+BEGIN
+    add_screening(film_id, room_id, screening_time);
+END;
