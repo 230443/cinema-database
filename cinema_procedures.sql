@@ -39,3 +39,36 @@ BEGIN
     );
 
 END sell_ticket;
+
+
+CREATE OR REPLACE PROCEDURE modify_film_by_title (
+    in_search_title   IN   films.title%TYPE,
+    in_title          IN   films.title%TYPE DEFAULT NULL,
+    in_director       IN   films.director%TYPE DEFAULT NULL,
+    in_release_date   IN   films.release_date%TYPE DEFAULT NULL
+) IS
+    film_row films%rowtype;
+BEGIN
+    SELECT
+        id,
+        title,
+        director,
+        release_date
+    INTO film_row
+    FROM
+        films
+    WHERE
+        lower(title) LIKE '%'
+                          || lower(in_search_title)
+                          || '%';
+
+    film_row.title := nvl(in_title, film_row.title);
+    film_row.director := nvl(in_director, film_row.director);
+    film_row.release_date := nvl(in_release_date, film_row.release_date);
+    UPDATE films
+    SET
+        row = film_row
+    WHERE
+        id = film_row.id;
+
+END modify_film_by_title;

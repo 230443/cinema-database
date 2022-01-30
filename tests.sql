@@ -50,4 +50,26 @@ EXCEPTION
         ELSE
             RAISE;
         END IF;
+end;
+
+
+SELECT
+    id,
+    title,
+    director,
+    release_date
+FROM
+    films
+WHERE
+    lower(title) LIKE '%'
+                      || lower('Spider-man')
+                      || '%';
+
+DECLARE
+    search_title   films.title%TYPE := 'Spider-man';
+    title          films.title%TYPE;
+    director       films.director%TYPE := 'test director modified';
+    release_date   films.release_date%TYPE := '15-SEP-2020';
+BEGIN
+    modify_film_by_title(in_search_title => search_title, in_director => director, in_release_date => release_date);
 END;
